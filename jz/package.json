@@ -1,0 +1,19 @@
+{
+  "name": "wsjz",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "nodejs",
+    "mysql"
+  ],
+  "author": "xuzhiguo",
+  "license": "ISC",
+  "devDependencies": {
+    "mysql": "^2.13.0"
+  }
+}

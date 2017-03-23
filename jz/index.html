@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css"/>
+	</head>
+	<body>
+		<div class="container">
+			<h3>增删查改</h3>
+			<form role="form">
+				<div class="form-group">
+				 	<label for="exampleInputPassword1">userName</label>
+				 	<input type="text" class="form-control" id="userName" />
+				</div>
+				<div class="form-group">
+				 	<label for="exampleInputFile">passWord</label>
+				 	<input type="passWord" class="form-control" id="passWord" />
+					<p class="help-block">
+						请选择你的客户类型：
+					</p>
+				</div>
+				<select  class="clientType">
+					<option value="0">我是商户</option>
+					<option value="0">我是客户</option>
+				</select> <br /> <br />
+				<button type="submit" class="btn btn-default" id="add" >add</button>
+				<button type="submit" class="btn btn-default" id="delete" >delete</button>
+				<button type="submit" class="btn btn-default" id="query" >query</button>
+				<button type="submit" class="btn btn-default" id="modify" >modify</button>
+			</form>
+		</div>
+	</body>
+</html>
+<script src="lib/jquery-1.12.0.js"></script>
+<script>
+	var $add = $('#add');
+	var $query = $('#query');
+	var $delete = $('#delete');
+	var $modify = $('#modify');
+	var $userName = $('#userName');
+	var $passWord = $('#passWord');
+	var $clientType = $('.clientType');
+	
+	//查询
+	$query.on('click',function(){
+		ajaxJZ('query',{},function(dataLists){
+			console.log(JSON.parse(dataLists));
+		});
+	});
+	
+	//添加
+	$add.on('click',function(){
+		//不为空时才可添加
+		if($userName.val()&&$passWord.val()){
+			var obj = {
+				userName: $userName.val(),
+				passWord: $passWord.val(),
+				type: $clientType.val()
+			}
+			ajaxJZ('add',obj,function(res){
+				console.log(res);
+			});
+		}
+	});
+	
+	//删除
+	$delete.on('click',function(){
+		//不为空时才能添加
+		if($userName.val()){
+			var obj = {
+				userName: $userName.val(),
+			}
+			ajaxJZ('delete',obj,function(res){
+				console.log(res);
+			});
+		}
+	});
+	
+	function ajaxJZ(path,params,callback) {
+		$.ajax({
+			type:'get',
+			url:'http://localhost:9999/'+path+'?userName='+params.userName+'&passWord='+params.passWord+'&type='+params.type,
+			success: callback
+		});
+	}
+	
+
+</script>
